@@ -1,0 +1,124 @@
+classDiagram
+    class User {
+        <<abstract>>
+        Responsibilities
+        - Handle basic user operations
+        - Like/dislike messages
+        - Join communities
+        - Write messages
+        - Delete messages
+        - Store unique user ID
+        Collaborators
+        - Message
+        - Community
+    }
+
+    class Community {
+        <<abstract>>
+        Responsibilities
+        - Manage user membership
+        - Show content to users
+        - Handle message operations
+        - Track joined users
+        - Track messages
+        Collaborators
+        - User
+        - Message
+    }
+
+    class Message {
+        <<abstract>>
+        Responsibilities
+        - Store message content
+        - Handle likes/dislikes
+        - Support message editing
+        - Display message content
+        - Track message metadata
+        Collaborators
+        - User
+        - Community
+    }
+
+    class ChannelManager {
+        Responsibilities
+        - Write messages in channels
+        - Delete messages in channels
+        - Manage channel content
+        Collaborators
+        - Channel
+        - Message
+    }
+
+    class NormalUser {
+        Responsibilities
+        - Write messages in groups
+        - Participate in communities
+        - Edit own messages
+        Collaborators
+        - Group
+        - Message
+        - Community
+    }
+
+    class Channel {
+        Responsibilities
+        - Manage channel visibility
+        - Allow ChannelManager messages
+        - Track channel members
+        - Display messages
+        Collaborators
+        - ChannelManager
+        - Message
+        - User
+    }
+
+    class Group {
+        Responsibilities
+        - Manage group visibility
+        - Allow NormalUser messages
+        - Prevent message deletion
+        - Track group members
+        - Display messages
+        Collaborators
+        - NormalUser
+        - Message
+        - User
+    }
+
+    class Text {
+        Responsibilities
+        - Handle text content
+        - Track likes/dislikes
+        - Display text messages
+        Collaborators
+        - User
+        - Community
+    }
+
+    class Image {
+        Responsibilities
+        - Handle image content
+        - Track likes/dislikes
+        - Display image messages
+        Collaborators
+        - User
+        - Community
+    }
+
+    class Video {
+        Responsibilities
+        - Handle video content
+        - Track likes/dislikes
+        - Display video messages
+        Collaborators
+        - User
+        - Community
+    }
+
+    User <|-- ChannelManager
+    User <|-- NormalUser
+    Community <|-- Channel
+    Community <|-- Group
+    Message <|-- Text
+    Message <|-- Image
+    Message <|-- Video

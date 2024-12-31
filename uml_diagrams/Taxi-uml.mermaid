@@ -1,0 +1,72 @@
+classDiagram
+    class User {
+        -String contactNumber
+        -double balance
+        -String accountNumber
+        -String location
+        +updateBalance(amount: double)
+        +getContactNumber(): String
+        +getLocation(): String
+    }
+
+    class Passenger {
+        -List~Trip~ tripHistory
+        +requestTrip(location: String, destination: String): Trip
+        +viewTripHistory(): List~Trip~
+        +rateDriver(driver: Driver, rating: int)
+    }
+
+    class Driver {
+        -List~String~ qualifications
+        -List~Trip~ trips
+        -boolean isAvailable
+        -double rating
+        +acceptTrip(trip: Trip): boolean
+        +completeTrip(trip: Trip)
+        +updateLocation(location: String)
+        +getQualifications(): List~String~
+        +getRating(): double
+    }
+
+    class Manager {
+        -List~Driver~ drivers
+        -List~Passenger~ passengers
+        +calculateCommission(driver: Driver): double
+        +processMonthlyPayments()
+        +viewAllTrips(): List~Trip~
+        +manageDrivers()
+        +managePassengers()
+    }
+
+    class Trip {
+        -String tripId
+        -Passenger passenger
+        -Driver driver
+        -String pickupLocation
+        -String destination
+        -double cost
+        -TripStatus status
+        -DateTime startTime
+        -DateTime endTime
+        +calculateCost(): double
+        +updateStatus(status: TripStatus)
+        +getTripDetails(): String
+    }
+
+    class TripStatus {
+        <<enumeration>>
+        REQUESTED
+        ACCEPTED
+        IN_PROGRESS
+        COMPLETED
+        CANCELLED
+    }
+
+    User <|-- Passenger
+    User <|-- Driver
+    User <|-- Manager
+    Passenger "1" --> "*" Trip : has
+    Driver "1" --> "*" Trip : performs
+    Manager "1" --> "*" Driver : manages
+    Manager "1" --> "*" Passenger : manages
+    Trip "*" --> "1" TripStatus : has
